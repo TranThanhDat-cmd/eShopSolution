@@ -14,11 +14,12 @@ namespace eShopSolution.Data.EF
     {
         public EShopDbContext(DbContextOptions options) : base(options)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            base.OnModelCreating(modelBuilder);
             // Add Configuration
             modelBuilder.ApplyConfiguration(new CartConfiguration());
 
@@ -39,14 +40,10 @@ namespace eShopSolution.Data.EF
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
-            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new
-            {
-                x.UserId,
-                x.RoleId
-            });
-            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles");
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins");
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
-            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserToken").HasKey(x => x.UserId); ;
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserToken");
 
 
 
@@ -65,8 +62,7 @@ namespace eShopSolution.Data.EF
 
 
         public DbSet<Cart> Carts { get; set; }
-        //public DbSet<AppUser> AppUsers { get; set; }
-        //public DbSet<AppRole> AppRoles { get; set; }
+
 
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
         public DbSet<ProductInCategory> ProductInCategories { get; set; }
